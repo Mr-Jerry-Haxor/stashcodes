@@ -6,7 +6,7 @@ from .models import InternshipApplication
 def home(request):
     return render(request, 'home.html')
 
-@login_required
+@login_required(login_url="/auth/login/google-oauth2/")
 def apply(request):
     if request.method == 'POST':
         application = InternshipApplication()
