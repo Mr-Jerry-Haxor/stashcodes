@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StashCodes - Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* Additional custom styles can be added here */
+    </style>
+</head>
+<body class="bg-gray-100">
+    <!-- Header Section -->
+    {% include "header.html" %}
+
+    <section class="bg-blue-500 text-white text-center py-8 relative">
+        <h1 class="text-4xl font-bold mb-4">Unlock Your Potential with StashCodes</h1>
+        <p class="text-lg">Embark on an Inspiring Journey of Learning and Growth</p>
+        <div class="absolute inset-0 flex items-center justify-center opacity-0 animate__animated animate__fadeInUp animate__delay-1s">
+            <svg class="animate__animated animate__pulse animate__infinite" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="48" height="48"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </div>
+    </section>
+
+
+
+    <!-- Who We Are Section -->
+    <section class="container mx-auto py-8">
+        <div class="text-center">
+            <h2 class="text-2xl font-semibold mb-4">Who We Are</h2>
+            <p class="text-lg mb-8">
+                StashCodes are IT services and IT consultancy that specializes in creating innovative solutions for businesses. We are passionate about technology and believe in the power of software to transform the world. Our internship program is just one of the ways in which we are investing in the future of the industry.
+            </p>
+            <p class="text-lg mb-8">
+                At StashCodes, we believe practical knowledge is the key to success in the tech industry. Our aim is to help students lacking basic skills by offering hands-on learning through live projects and real-world examples.
+            </p>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="container mx-auto py-8">
+        <div class="text-center">
+            <h2 class="text-2xl font-semibold mb-4">Internship Positions</h2>
+            <p class="text-lg mb-8">
+                Join our exciting internship programs to kickstart your career in tech!
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+                <!-- Web Development Internship Card -->
+                <div class="internship-card bg-white shadow-md rounded-lg overflow-hidden">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Web Development Internship</h3>
+                        <p class="text-gray-700 mb-4">
+                            Gain practical work experience and an introduction to crafting and enhancing web-based systems.
+                        </p>
+                        <a href="{% url 'apply' %}" class="block bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition">Apply Now</a>
+                    </div>
+                </div>
+                <!-- Android App Development Internship Card -->
+                <div class="internship-card bg-white shadow-md rounded-lg overflow-hidden">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Android App Development Internship</h3>
+                        <p class="text-gray-700 mb-4">
+                            Start your journey in app development and unlock endless possibilities in the realm of mobile innovation.
+                        </p>
+                        <a href="{% url 'apply' %}" class="block bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition">Apply Now</a>
+                    </div>
+                </div>
+                <!-- Data Science Internship Card -->
+                <div class="internship-card bg-white shadow-md rounded-lg overflow-hidden">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Data Science Internship</h3>
+                        <p class="text-gray-700 mb-4">
+                            Dive into the world of data science and gain practical experience in analyzing data and deriving insights.
+                        </p>
+                        <a href="{% url 'apply' %}" class="block bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition">Apply Now</a>
+                    </div>
+                </div>
+                <!-- Java Programming Internship Card -->
+                <div class="internship-card bg-white shadow-md rounded-lg overflow-hidden">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Java Programming Internship</h3>
+                        <p class="text-gray-700 mb-4">
+                            Master the fundamentals of Java programming and enhance your skills in web application development.
+                        </p>
+                        <a href="{% url 'apply' %}" class="block bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition">Apply Now</a>
+                    </div>
+                </div>
+                <!-- Python Programming Internship Card -->
+                <div class="internship-card bg-white shadow-md rounded-lg overflow-hidden">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Python Programming Internship</h3>
+                        <p class="text-gray-700 mb-4">
+                            Dive into Python programming language and learn how to build web applications and perform data analysis.
+                        </p>
+                        <a href="{% url 'apply' %}" class="block bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition">Apply Now</a>
+                    </div>
+                </div>
+                <!-- C++ Programming Internship Card -->
+                <div class="internship-card bg-white shadow-md rounded-lg overflow-hidden">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">C++ Programming Internship</h3>
+                        <p class="text-gray-700 mb-4">
+                            Gain mastery in C++ programming and open doors to amazing job opportunities with our certification program.
+                        </p>
+                        <a href="{% url 'apply' %}" class="block bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition">Apply Now</a>
+                    </div>
+                </div>
+                <!-- UI/UX Design Internship Card -->
+                <div class="internship-card bg-white shadow-md rounded-lg overflow-hidden">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">UI/UX Design Internship</h3>
+                        <p class="text-gray-700 mb-4">
+                            Learn the principles of UI/UX design and create engaging user experiences for web and mobile applications.
+                        </p>
+                        <a href="{% url 'apply' %}" class="block bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition">Apply Now</a>
+                    </div>
+                </div>
+                <!-- Artificial Intelligence Internship Card -->
+                <div class="internship-card bg-white shadow-md rounded-lg overflow-hidden">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Artificial Intelligence Internship</h3>
+                        <p class="text-gray-700 mb-4">
+                            Gain mastery in Artificial Intelligence and open doors to amazing job opportunities with our certification program.
+                        </p>
+                        <a href="{% url 'apply' %}" class="block bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition">Apply Now</a>
+                    </div>
+                </div>
+                <!-- Machine Learning Internship Card -->
+                <div class="internship-card bg-white shadow-md rounded-lg overflow-hidden">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Machine Learning Internship</h3>
+                        <p class="text-gray-700 mb-4">
+                            Gain mastery in Machine Learning and open doors to amazing job opportunities with our certification program.
+                        </p>
+                        <a href="{% url 'apply' %}" class="block bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition">Apply Now</a>
+                    </div>
+                </div>
+                <!-- Add more internship cards here -->
+            </div>
+        </div>
+    </section>
+
+
+    {% include "footer.html" %}
+</body>
+</html>
