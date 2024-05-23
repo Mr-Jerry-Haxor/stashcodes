@@ -24,3 +24,17 @@ def apply(request):
         return redirect('home')
     else: 
         return render(request, 'apply.html')
+    
+    
+from .models import Contact
+
+def contact_us(request):
+    if request.method == 'POST':
+        contact = Contact()
+        contact.name = request.POST['name']
+        contact.email = request.POST['email']
+        contact.message = request.POST['message']
+        contact.save()
+        return redirect('home')
+    else:
+        return render(request, 'contact_us.html')

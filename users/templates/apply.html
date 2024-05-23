@@ -15,7 +15,7 @@
             {% csrf_token %}
             <div class="mb-4">
                 <label for="email" class="block text-sm font-medium text-gray-700">Email *</label>
-                <input type="email" id="email" name="email" required
+                <input type="email" id="email" name="email" value="{{ request.user.email }}" required readonly
                        class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
             </div>
 
@@ -112,5 +112,115 @@
 
 
     {% include "footer.html" %}
+    <script>
+        document.getElementById('internshipForm').addEventListener('submit', function (event) {
+            let isValid = true;
+
+            // Email validation
+            const email = document.getElementById('email');
+            const emailError = document.getElementById('emailError');
+            if (!email.checkValidity()) {
+                emailError.classList.remove('hidden');
+                isValid = false;
+            } else {
+                emailError.classList.add('hidden');
+            }
+
+            // Name validation
+            const name = document.getElementById('name');
+            const nameError = document.getElementById('nameError');
+            if (!name.checkValidity()) {
+                nameError.classList.remove('hidden');
+                isValid = false;
+            } else {
+                nameError.classList.add('hidden');
+            }
+
+            // Gender validation
+            const gender = document.getElementById('gender');
+            const genderError = document.getElementById('genderError');
+            if (!gender.checkValidity()) {
+                genderError.classList.remove('hidden');
+                isValid = false;
+            } else {
+                genderError.classList.add('hidden');
+            }
+
+            // Domain validation
+            const domain = document.getElementById('domain');
+            const domainError = document.getElementById('domainError');
+            if (!domain.checkValidity()) {
+                domainError.classList.remove('hidden');
+                isValid = false;
+            } else {
+                domainError.classList.add('hidden');
+            }
+
+            // College validation
+            const college = document.getElementById('college');
+            const collegeError = document.getElementById('collegeError');
+            if (!college.checkValidity()) {
+                collegeError.classList.remove('hidden');
+                isValid = false;
+            } else {
+                collegeError.classList.add('hidden');
+            }
+
+            // Contact number validation
+            const contact = document.getElementById('contact');
+            const contactError = document.getElementById('contactError');
+            if (!contact.checkValidity()) {
+                contactError.classList.remove('hidden');
+                isValid = false;
+            } else {
+                contactError.classList.add('hidden');
+            }
+
+            // WhatsApp number validation
+            const whatsapp = document.getElementById('whatsapp');
+            const whatsappError = document.getElementById('whatsappError');
+            if (!whatsapp.checkValidity()) {
+                whatsappError.classList.remove('hidden');
+                isValid = false;
+            } else {
+                whatsappError.classList.add('hidden');
+            }
+
+            // Qualification validation
+            const qualification = document.getElementById('qualification');
+            const qualificationError = document.getElementById('qualificationError');
+            if (!qualification.checkValidity()) {
+                qualificationError.classList.remove('hidden');
+                isValid = false;
+            } else {
+                qualificationError.classList.add('hidden');
+            }
+
+            // Source validation
+            const source = document.getElementById('source');
+            const sourceError = document.getElementById('sourceError');
+            if (!source.checkValidity()) {
+                sourceError.classList.remove('hidden');
+                isValid = false;
+            } else {
+                sourceError.classList.add('hidden');
+            }
+
+            // Terms and conditions validation
+            const accept = document.getElementById('accept');
+            const acceptError = document.getElementById('acceptError');
+            if (!accept.checkValidity()) {
+                acceptError.classList.remove('hidden');
+                isValid = false;
+            } else {
+                acceptError.classList.add('hidden');
+            }
+
+            // Prevent form submission if any validation fails
+            if (!isValid) {
+                event.preventDefault();
+            }
+        });
+    </script>
 </body>
 </html>
