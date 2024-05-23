@@ -22,7 +22,7 @@ def apply(request):
         application.source = request.POST['source']
         application.save()
         messages.success(request, "Application submitted successfully.")
-        return redirect('home')
+        return render(request, 'applyconfirm.html')
     else: 
         return render(request, 'apply.html')
 
