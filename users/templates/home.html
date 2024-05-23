@@ -5,26 +5,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>StashCodes - Home</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
     <style>
-        /* Additional custom styles can be added here */
+        .ml2 {
+            font-weight: 900;
+            font-size: 3.2em;
+        }
+
+        .ml2 .letter {
+            display: inline-block;
+            line-height: 1em;
+        }
+        .ml6 {
+            position: relative;
+            font-weight: 900;
+            font-size: 2em;
+        }
+
+        .ml6 .text-wrapper {
+            position: relative;
+            display: inline-block;
+            padding-top: 0.2em;
+            padding-right: 0.05em;
+            padding-bottom: 0.1em;
+            overflow: hidden;
+        }
+
+        .ml6 .letter {
+            display: inline-block;
+            line-height: 1em;
+        }
     </style>
 </head>
 <body class="bg-gray-100">
     <!-- Header Section -->
     {% include "header.html" %}
 
-    <section class="bg-blue-500 text-white text-center py-8 relative">
-        <h1 class="text-4xl font-bold mb-4">Unlock Your Potential with StashCodes</h1>
-        <p class="text-lg">Embark on an Inspiring Journey of Learning and Growth</p>
-        <div class="absolute inset-0 flex items-center justify-center opacity-0 animate__animated animate__fadeInUp animate__delay-1s">
-            <svg class="animate__animated animate__pulse animate__infinite" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="48" height="48"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-        </div>
+    <section class="bg-blue-500 text-white text-center py-8 relative h-screen flex flex-col justify-center">
+        <h1 class="ml2 text-4xl font-bold mb-4">Unlock Your Potential with StashCodes</h1>
+        <p class="ml6 text-lg">
+            <span class="text-wrapper">
+                <span class="letters">Embark on an Inspiring Journey of Learning and Growth</span>
+            </span>
+        </p>
     </section>
 
 
 
     <!-- Who We Are Section -->
-    <section class="container mx-auto py-8">
+    <section class="container mx-auto py-8" id="about">
         <div class="text-center">
             <h2 class="text-2xl font-semibold mb-4">Who We Are</h2>
             <p class="text-lg mb-8">
@@ -37,7 +66,7 @@
     </section>
 
     <!-- Services Section -->
-    <section class="container mx-auto py-8">
+    <section class="container mx-auto py-8" id="services">
         <div class="text-center">
             <h2 class="text-2xl font-semibold mb-4">Internship Positions</h2>
             <p class="text-lg mb-8">
@@ -141,5 +170,44 @@
 
 
     {% include "footer.html" %}
+    <script>
+        var textWrapper = document.querySelector('.ml2');
+        textWrapper.innerHTML = textWrapper.textContent.replace(/\S/g, "<span class='letter'>$&</span>");
+
+        anime.timeline({loop: true})
+        .add({
+            targets: '.ml2 .letter',
+            scale: [4,1],
+            opacity: [0,1],
+            translateZ: 0,
+            easing: "easeOutExpo",
+            duration: 950,
+            delay: (el, i) => 70*i
+        }).add({
+            targets: '.ml2',
+            opacity: 0,
+            duration: 1000,
+            easing: "easeOutExpo",
+            delay: 1000
+        });
+
+        var textWrapper = document.querySelector('.ml6 .letters');
+        textWrapper.innerHTML = textWrapper.textContent.replace(/\S/g, "<span class='letter'>$&</span>");
+
+        anime.timeline({loop: true})
+        .add({
+            targets: '.ml6 .letter',
+            translateY: ["1.1em", 0],
+            translateZ: 0,
+            duration: 750,
+            delay: (el, i) => 50 * i
+        }).add({
+            targets: '.ml6',
+            opacity: 0,
+            duration: 1000,
+            easing: "easeOutExpo",
+            delay: 1000
+        });
+    </script>
 </body>
 </html>
