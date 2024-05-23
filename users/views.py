@@ -37,4 +37,4 @@ def contact_us(request):
         contact.save()
         return redirect('home')
     else:
-        return render(request, 'contact_us.html')
+        return render(request, 'contact.html')
