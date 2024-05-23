@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
-from .models import InternshipApplication
-
+from .models import InternshipApplication , Contact
+from django.contrib import messages
 
 def home(request):
     return render(request, 'home.html')
@@ -21,12 +21,10 @@ def apply(request):
         application.year = int(request.POST['year'])
         application.source = request.POST['source']
         application.save()
+        messages.success(request, "Application submitted successfully.")
         return redirect('home')
     else: 
         return render(request, 'apply.html')
-    
-    
-from .models import Contact
 
 def contact_us(request):
     if request.method == 'POST':
@@ -35,6 +33,7 @@ def contact_us(request):
         contact.email = request.POST['email']
         contact.message = request.POST['message']
         contact.save()
+        messages.success(request, "Your message has been sent.")
         return redirect('home')
     else:
         return render(request, 'contact.html')

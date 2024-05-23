@@ -25,4 +25,71 @@
             </ul>
         </nav>
     </div>
+    {% if messages %}
+        <div class="space-y-4">
+            {% for message in messages %}
+                {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+                    <div class="alert alert-error">
+                        <div class="flex-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="w-6 h-6 mx-2 stroke-current">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-11.728 11.728m0-11.728l11.728 11.728"></path>
+                            </svg>
+                            <label>{{ message }}</label>
+                        </div>
+                    </div>
+                    <script>
+                        setTimeout(function() {
+                            var msg = document.getElementById('message');
+                            msg.style.display = 'none';
+                        }, 5000);
+                    </script>
+                {% elif message.level == DEFAULT_MESSAGE_LEVELS.WARNING %}
+                    <div class="alert alert-warning">
+                        <div class="flex-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="w-6 h-6 mx-2 stroke-current">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.414 14l5.793-5.793a2 2 0 00-2.828-2.828L10.586 14l5.828 5.828a2 2 0 102.828-2.828L13.414 14z"></path>
+                            </svg>
+                            <label>{{ message }}</label>
+                        </div>
+                    </div>
+                    <script>
+                        setTimeout(function() {
+                            var msg = document.getElementById('message');
+                            msg.style.display = 'none';
+                        }, 5000);
+                    </script>
+                {% elif message.level == DEFAULT_MESSAGE_LEVELS.INFO %}
+                    <div class="alert alert-info">
+                        <div class="flex-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="w-6 h-6 mx-2 stroke-current">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m-8-4h8m-8 16h8m-8-4h8m-8-4h8M3 7h4m-4 4h4m-4 4h4m-4 4h4"></path>
+                            </svg>
+                            <label>{{ message }}</label>
+                        </div>
+                    </div>
+                    <script>
+                        setTimeout(function() {
+                            var msg = document.getElementById('message');
+                            msg.style.display = 'none';
+                        }, 5000);
+                    </script>
+                {% elif message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+                    <div class="alert alert-success">
+                        <div class="flex-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="w-6 h-6 mx-2 stroke-current">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <label>{{ message }}</label>
+                        </div>
+                    </div>
+                    <script>
+                        setTimeout(function() {
+                            var msg = document.getElementById('message');
+                            msg.style.display = 'none';
+                        }, 5000);
+                    </script>
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% endif %}
 </header>
