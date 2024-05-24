@@ -79,9 +79,18 @@
             </div>
 
             <div class="mb-4">
-                <label for="year" class="block text-sm font-medium text-gray-700">Current Year (Education)</label>
-                <input type="text" id="year" name="year"
-                       class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                <label for="year" class="block text-sm font-medium text-gray-700">Year of Passout</label>
+                <select id="year" name="year" class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                    <script>
+                        var year = new Date().getFullYear();
+                        var range = 20;
+                        var start = year - 10;
+                        var end = year + 10;
+                        for (var i = start; i <= end; i++) {
+                            document.write('<option value="' + i + '">' + i + '</option>');
+                        }
+                    </script>
+                </select>
             </div>
 
             <div class="mb-4">
