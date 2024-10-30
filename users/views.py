@@ -6,6 +6,14 @@ from django.db.models import Q
 from django.http import HttpResponse
 import json
 from django.views.decorators.csrf import csrf_exempt
+import json
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
+from .models import InternshipApplication, webhook_logs
+from .serializers import WebhookLogsSerializer
 
 def home(request):
     return render(request, 'home.html')
@@ -40,19 +48,19 @@ def apply(request):
         return render(request, 'apply.html')
 
 
-@csrf_exempt
-def payment_webhook(request):
-    if request.method == 'POST':
+@method_decorator(csrf_exempt, name='dispatch')
+class PaymentWebhook(APIView):
+    def post(self, request, *args, **kwargs):
         data = json.loads(request.body)
-            
-        # store data in webhook_logs
-        log = webhook_logs()
-        log.log = json.dumps(data)
-        log.save()
+        
+        # Store data in webhook_logs
+        log_serializer = WebhookLogsSerializer(data={'log': json.dumps(data)})
+        if log_serializer.is_valid():
+            log_serializer.save()
+        else:
+            return Response(log_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
         try:
-            
-            
-            
             order_status = data['data']['order']['order_status']
             customer_email = data['data']['order']['customer_details']['customer_email']
             
@@ -60,13 +68,11 @@ def payment_webhook(request):
                 application = InternshipApplication.objects.get(email=customer_email)
                 application.ispaid = True
                 application.save()
-                return HttpResponse(status=200)
+                return Response(status=status.HTTP_200_OK)
             else:
-                return HttpResponse(status=400)
+                return Response(status=status.HTTP_400_BAD_REQUEST)
         except (KeyError, json.JSONDecodeError, InternshipApplication.DoesNotExist):
-            return HttpResponse(status=400)
-    else:
-        return HttpResponse(status=400)
+            return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
 def contact_us(request):

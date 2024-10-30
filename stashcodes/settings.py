@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'import_export',
     'whitenoise.runserver_nostatic',
     'users',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -197,6 +198,11 @@ LOGOUT_URL = 'logout'
 LOGOUT_REDIRECT_URL = 'index'
 
 
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',
+    ],
+}
 
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = str(os.getenv('GOOGLE_KEY'))
