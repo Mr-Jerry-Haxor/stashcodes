@@ -41,7 +41,7 @@ def apply(request):
 
 
 def payment_webhook(request):
-    if request.method == 'POST':
+    if request.method == 'GET':
         try:
             data = json.loads(request.body)
             
