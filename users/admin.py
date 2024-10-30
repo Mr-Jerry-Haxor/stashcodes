@@ -11,11 +11,12 @@ class InternshipApplicationAdmin(ImportExportModelAdmin):
     resource_class = InternshipApplicationResource
     list_display = ('email', 'name', 'gender', 'domain', 'college', 'contact', 'whatsapp', 'qualification', 'year', 'source')
     search_fields = ('email', 'name', 'college', 'domain')
-    list_filter = ('gender', 'year', 'college')
+    list_filter = ('gender', 'year', 'college' , 'domain', 'time')
 
 class ContactAdmin(admin.ModelAdmin):
     list_display = ('name', 'email', 'message' , 'time')
     search_fields = ('name', 'email')
+    list_filter = ('time')
 
 class WebhookLogsAdmin(admin.ModelAdmin):
     list_display = ('log', 'log_time')
