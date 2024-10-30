@@ -12,6 +12,7 @@ class InternshipApplication(models.Model):
     year = models.IntegerField()
     source = models.CharField(max_length=200)
     ispaid = models.BooleanField(default=False)
+    time = models.DateTimeField(auto_now_add=True)
 
 class Contact(models.Model):
     name = models.CharField(max_length=200)
