@@ -51,15 +51,15 @@ def apply(request):
 @method_decorator(csrf_exempt, name='dispatch')
 class PaymentWebhook(APIView):
     def post(self, request, *args, **kwargs):
-        data = request.data
+        # data = request.data
         
-        # Store data in webhook_logs
-        try:
-            log_serializer = WebhookLogsSerializer(data={'log': json.dumps(data)})
-            if log_serializer.is_valid():
-                log_serializer.save()
-        except:
-            pass
+        # # Store data in webhook_logs
+        # try:
+        #     log_serializer = WebhookLogsSerializer(data={'log': json.dumps(data)})
+        #     if log_serializer.is_valid():
+        #         log_serializer.save()
+        # except:
+        #     pass
        
         # else:
         #     return Response(log_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
