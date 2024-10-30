@@ -5,6 +5,7 @@ from django.contrib import messages
 from django.db.models import Q
 from django.http import HttpResponse
 import json
+from django.views.decorators.csrf import csrf_exempt
 
 def home(request):
     return render(request, 'home.html')
@@ -39,7 +40,7 @@ def apply(request):
         return render(request, 'apply.html')
 
 
-
+@csrf_exempt
 def payment_webhook(request):
     if request.method == 'POST':
         try:
