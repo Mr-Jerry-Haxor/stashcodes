@@ -54,9 +54,13 @@ class PaymentWebhook(APIView):
         data = request.data
         
         # Store data in webhook_logs
-        log_serializer = WebhookLogsSerializer(data={'log': json.dumps(data)})
-        if log_serializer.is_valid():
-            log_serializer.save()
+        try:
+            log_serializer = WebhookLogsSerializer(data={'log': json.dumps(data)})
+            if log_serializer.is_valid():
+                log_serializer.save()
+        except:
+            pass
+       
         # else:
         #     return Response(log_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
