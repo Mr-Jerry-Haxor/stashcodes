@@ -11,6 +11,7 @@ class InternshipApplication(models.Model):
     qualification = models.CharField(max_length=200)
     year = models.IntegerField()
     source = models.CharField(max_length=200)
+    ispaid = models.BooleanField(default=False)
 
 class Contact(models.Model):
     name = models.CharField(max_length=200)

@@ -3,6 +3,8 @@ from django.contrib.auth.decorators import login_required
 from .models import InternshipApplication , Contact
 from django.contrib import messages
 from django.db.models import Q
+from django.http import HttpResponse
+import json
 
 def home(request):
     return render(request, 'home.html')
@@ -14,6 +16,7 @@ def apply(request):
         domain = request.POST['domain']
         if InternshipApplication.objects.filter(Q(email=email) & Q(domain=domain)).exists():
             messages.error(request, "You have already registered with this email and domain.")
+            return redirect('home')
         else:
             application = InternshipApplication()
             application.email = email
@@ -28,11 +31,33 @@ def apply(request):
             application.source = request.POST['source']
             application.save()
             messages.success(request, "Application submitted successfully.")
+            return redirect("https://payments.cashfree.com/forms/stashcodes-internship")
         
         # return render(request, 'applyconfirm.html')
-        return redirect("https://payments.cashfree.com/forms/stashcodes-internship")
+        
     else: 
         return render(request, 'apply.html')
+
+
+def payment_webhook(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            order_status = data['data']['order']['order_status']
+            customer_email = data['data']['order']['customer_details']['customer_email']
+            
+            if order_status == 'PAID':
+                application = InternshipApplication.objects.get(email=customer_email)
+                application.ispaid = True
+                application.save()
+                return HttpResponse(status=200)
+            else:
+                return HttpResponse(status=400)
+        except (KeyError, json.JSONDecodeError, InternshipApplication.DoesNotExist):
+            return HttpResponse(status=400)
+    else:
+        return HttpResponse(status=400)
+
 
 def contact_us(request):
     if request.method == 'POST':
