@@ -69,7 +69,7 @@ class PaymentWebhook(APIView):
         # else:
         #     return Response(log_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
-        return HttpResponse({"status": "Success!"}, status=status.HTTP_200_OK)
+        return HttpResponse({"status": "Success!"}, status=200)
         
         
         # try:
