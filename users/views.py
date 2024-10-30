@@ -39,7 +39,14 @@ def apply(request):
         return render(request, 'apply.html')
 
 
+
+webhook_log = ""
+
 def payment_webhook(request):
+    global webhook_log
+    data = json.loads(request.body)
+    webhook_log += json.dumps(data)  # Convert data to a JSON string
+    return HttpResponse(content=webhook_log, status=200, content_type='application/json')
     if request.method == 'GET':
         try:
             data = json.loads(request.body)
