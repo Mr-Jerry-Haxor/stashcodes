@@ -57,26 +57,29 @@ class PaymentWebhook(APIView):
         log_serializer = WebhookLogsSerializer(data={'log': json.dumps(data)})
         if log_serializer.is_valid():
             log_serializer.save()
-        else:
-            return Response(log_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        # else:
+        #     return Response(log_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
-        try:
-            order_status = data['data']['order']['order_status']
-            customer_email = data['data']['order']['customer_details']['customer_email']
+        return Response({"status": "Success!"}, status=status.HTTP_200_OK)
+        
+        
+        # try:
+        #     order_status = data['data']['order']['order_status']
+        #     customer_email = data['data']['order']['customer_details']['customer_email']
             
-            if order_status == 'PAID':
-                application = InternshipApplication.objects.get(email=customer_email)
-                application.ispaid = True
-                application.save()
-                return Response({"status": "Success!"}, status=status.HTTP_200_OK)
-            else:
-                return Response({"error": "Order status is not PAID."}, status=status.HTTP_400_BAD_REQUEST)
-        except KeyError as e:
-            return Response({"error": f"Missing key: {str(e)}"}, status=status.HTTP_400_BAD_REQUEST)
-        except json.JSONDecodeError:
-            return Response({"error": "Invalid JSON format."}, status=status.HTTP_400_BAD_REQUEST)
-        except InternshipApplication.DoesNotExist:
-            return Response({"error": "Internship application not found."}, status=status.HTTP_400_BAD_REQUEST)
+        #     if order_status == 'PAID':
+        #         application = InternshipApplication.objects.get(email=customer_email)
+        #         application.ispaid = True
+        #         application.save()
+        #         return Response({"status": "Success!"}, status=status.HTTP_200_OK)
+        #     else:
+        #         return Response({"error": "Order status is not PAID."}, status=status.HTTP_400_BAD_REQUEST)
+        # except KeyError as e:
+        #     return Response({"error": f"Missing key: {str(e)}"}, status=status.HTTP_400_BAD_REQUEST)
+        # except json.JSONDecodeError:
+        #     return Response({"error": "Invalid JSON format."}, status=status.HTTP_400_BAD_REQUEST)
+        # except InternshipApplication.DoesNotExist:
+        #     return Response({"error": "Internship application not found."}, status=status.HTTP_400_BAD_REQUEST)
 
 
 def contact_us(request):
