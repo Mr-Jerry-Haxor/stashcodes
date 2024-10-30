@@ -29,7 +29,8 @@ def apply(request):
             application.save()
             messages.success(request, "Application submitted successfully.")
         
-        return render(request, 'applyconfirm.html')
+        # return render(request, 'applyconfirm.html')
+        return redirect("https://payments.cashfree.com/forms/stashcodes-internship")
     else: 
         return render(request, 'apply.html')
 
