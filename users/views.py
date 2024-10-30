@@ -43,13 +43,14 @@ def apply(request):
 @csrf_exempt
 def payment_webhook(request):
     if request.method == 'POST':
-        try:
-            data = json.loads(request.body)
+        data = json.loads(request.body)
             
-            # store data in webhook_logs
-            log = webhook_logs()
-            log.log = json.dumps(data)
-            log.save()
+        # store data in webhook_logs
+        log = webhook_logs()
+        log.log = json.dumps(data)
+        log.save()
+        try:
+            
             
             
             order_status = data['data']['order']['order_status']
