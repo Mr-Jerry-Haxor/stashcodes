@@ -47,7 +47,7 @@ def payment_webhook(request):
             
             # store data in webhook_logs
             log = webhook_logs()
-            log.log = data
+            log.log = json.dumps(data)
             log.save()
             
             
