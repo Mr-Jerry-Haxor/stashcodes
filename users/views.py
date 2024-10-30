@@ -46,10 +46,15 @@ def apply(request):
         
     else: 
         return render(request, 'apply.html')
+    
+    
 
 
 @method_decorator(csrf_exempt, name='dispatch')
 class PaymentWebhook(APIView):
+    
+
+    
     def post(self, request, *args, **kwargs):
         # data = request.data
         
@@ -64,7 +69,7 @@ class PaymentWebhook(APIView):
         # else:
         #     return Response(log_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
-        return Response({"status": "Success!"}, status=status.HTTP_200_OK)
+        return HttpResponse({"status": "Success!"}, status=status.HTTP_200_OK)
         
         
         # try:
