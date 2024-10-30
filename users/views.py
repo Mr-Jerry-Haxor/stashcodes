@@ -51,7 +51,6 @@ def apply(request):
 @method_decorator(csrf_exempt, name='dispatch')
 class PaymentWebhook(APIView):
     def post(self, request, *args, **kwargs):
-        # data = json.loads(request.body)
         data = request.data
         
         # Store data in webhook_logs
@@ -69,11 +68,15 @@ class PaymentWebhook(APIView):
                 application = InternshipApplication.objects.get(email=customer_email)
                 application.ispaid = True
                 application.save()
-                return Response(status=status.HTTP_200_OK)
+                return Response({"status": "Success!"}, status=status.HTTP_200_OK)
             else:
-                return Response(status=status.HTTP_400_BAD_REQUEST)
-        except (KeyError, json.JSONDecodeError, InternshipApplication.DoesNotExist):
-            return Response(status=status.HTTP_400_BAD_REQUEST)
+                return Response({"error": "Order status is not PAID."}, status=status.HTTP_400_BAD_REQUEST)
+        except KeyError as e:
+            return Response({"error": f"Missing key: {str(e)}"}, status=status.HTTP_400_BAD_REQUEST)
+        except json.JSONDecodeError:
+            return Response({"error": "Invalid JSON format."}, status=status.HTTP_400_BAD_REQUEST)
+        except InternshipApplication.DoesNotExist:
+            return Response({"error": "Internship application not found."}, status=status.HTTP_400_BAD_REQUEST)
 
 
 def contact_us(request):
