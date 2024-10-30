@@ -14,7 +14,7 @@ class InternshipApplicationAdmin(ImportExportModelAdmin):
     list_filter = ('gender', 'year', 'college')
 
 class ContactAdmin(admin.ModelAdmin):
-    list_display = ('name', 'email', 'message')
+    list_display = ('name', 'email', 'message' , 'time')
     search_fields = ('name', 'email')
 
 class WebhookLogsAdmin(admin.ModelAdmin):
