@@ -51,7 +51,8 @@ def apply(request):
 @method_decorator(csrf_exempt, name='dispatch')
 class PaymentWebhook(APIView):
     def post(self, request, *args, **kwargs):
-        data = json.loads(request.data)
+        # data = json.loads(request.body)
+        data = request.data
         
         # Store data in webhook_logs
         log_serializer = WebhookLogsSerializer(data={'log': json.dumps(data)})
