@@ -17,6 +17,7 @@ class Contact(models.Model):
     name = models.CharField(max_length=200)
     email = models.EmailField()
     message = models.TextField()
+    time = models.DateTimeField(auto_now_add=True)
     
     
 class webhook_logs(models.Model):
