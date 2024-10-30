@@ -1,6 +1,6 @@
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
-from .models import InternshipApplication , Contact
+from .models import InternshipApplication , Contact, webhook_logs
 from django.contrib import messages
 from django.db.models import Q
 from django.http import HttpResponse
@@ -40,15 +40,16 @@ def apply(request):
 
 
 
-webhook_log = ""
-
 def payment_webhook(request):
-    global webhook_log
     if request.method == 'POST':
         try:
             data = json.loads(request.body)
             
-            webhook_log += json.dumps(data)  
+            # store data in webhook_logs
+            log = webhook_logs()
+            log.log = data
+            log.save()
+            
             
             order_status = data['data']['order']['order_status']
             customer_email = data['data']['order']['customer_details']['customer_email']
@@ -63,8 +64,7 @@ def payment_webhook(request):
         except (KeyError, json.JSONDecodeError, InternshipApplication.DoesNotExist):
             return HttpResponse(status=400)
     else:
-        return HttpResponse(content=webhook_log, status=200, content_type='application/json')
-        # return HttpResponse(status=400)
+        return HttpResponse(status=400)
 
 
 def contact_us(request):
