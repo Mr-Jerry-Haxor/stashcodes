@@ -44,12 +44,12 @@ webhook_log = ""
 
 def payment_webhook(request):
     global webhook_log
-    data = json.loads(request.body)
-    webhook_log += json.dumps(data)  # Convert data to a JSON string
-    return HttpResponse(content=webhook_log, status=200, content_type='application/json')
-    if request.method == 'GET':
+    if request.method == 'POST':
         try:
             data = json.loads(request.body)
+            
+            webhook_log += json.dumps(data)  
+            
             order_status = data['data']['order']['order_status']
             customer_email = data['data']['order']['customer_details']['customer_email']
             
@@ -63,7 +63,8 @@ def payment_webhook(request):
         except (KeyError, json.JSONDecodeError, InternshipApplication.DoesNotExist):
             return HttpResponse(status=400)
     else:
-        return HttpResponse(status=400)
+        return HttpResponse(content=webhook_log, status=200, content_type='application/json')
+        # return HttpResponse(status=400)
 
 
 def contact_us(request):
