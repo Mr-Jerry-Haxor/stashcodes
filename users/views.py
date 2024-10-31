@@ -18,65 +18,52 @@ from .serializers import WebhookLogsSerializer
 def home(request):
     return render(request, 'home.html')
 
-@login_required(login_url="/auth/login/google-oauth2/")
+
 def apply(request):
-    if request.method == 'POST':
-        email = request.POST['email']
-        domain = request.POST['domain']
-        if InternshipApplication.objects.filter(Q(email=email) & Q(domain=domain)).exists():
-            messages.error(request, "You have already registered with this email and domain.")
-            return redirect('home')
-        else:
-            application = InternshipApplication()
-            application.email = email
-            application.name = request.POST['name']
-            application.gender = request.POST['gender']
-            application.domain = domain
-            application.college = request.POST['college']
-            application.contact = request.POST['contact']
-            application.whatsapp = request.POST['whatsapp']
-            application.qualification = request.POST['qualification']
-            application.year = int(request.POST['year'])
-            application.source = request.POST['source']
-            application.save()
-            messages.success(request, "Application submitted successfully.")
-            return redirect("https://payments.cashfree.com/forms/stashcodes-internship")
-        
-        # return render(request, 'applyconfirm.html')
-        
-    else: 
-        return render(request, 'apply.html')
+    return redirect("https://payments.cashfree.com/forms/stashcodes-internship")
     
     
 
 
 @method_decorator(csrf_exempt, name='dispatch')
 class PaymentWebhook(APIView):
-    
-
-    
     def post(self, request, *args, **kwargs):
         data = request.data
         
         # Store data in webhook_logs
         try:
-            log_serializer = WebhookLogsSerializer(data={'log': json.dumps(data)})
+            log_serializer = WebhookLogsSerializer(data={'log': data})
             if log_serializer.is_valid():
                 log_serializer.save()
-        except:
+        except Exception as e:
             pass
-       
-
-        
-        
         
         try:
             order_status = data['data']['order']['order_status']
-            customer_email = data['data']['order']['customer_details']['customer_email']
+            customer_details = data['data']['order']['customer_details']
             
             if order_status == 'PAID':
-                application = InternshipApplication.objects.get(email=customer_email)
-                application.ispaid = True
+                # Extract customer details
+                customer_email = customer_details['customer_email']
+                customer_name = customer_details['customer_name']
+                customer_phone = customer_details['customer_phone']
+                customer_fields = {field['title']: field['value'] for field in customer_details['customer_fields']}
+                
+                
+                address = customer_fields.get('Address Line 1', '') + ', ' + customer_fields.get('City', '') + ', ' + customer_fields.get('State', '') + ', ' + customer_fields.get('Pincode', '')
+                # Create a new InternshipApplication entry
+                application = InternshipApplication(
+                    email=customer_email,
+                    name=customer_name,
+                    contact=customer_phone,
+                    domain=customer_fields.get('Domain of Internship ', ''),
+                    address= address,
+                    gender=customer_fields.get('Gender', ''),
+                    college=customer_fields.get('College', ''),
+                    qualification=customer_fields.get('Highest Academic Qualification', ''),
+                    year=customer_fields.get('Year of Passout', ''),
+                    ispaid=True
+                )
                 application.save()
                 return Response({"status": "Success!"}, status=status.HTTP_200_OK)
             else:
@@ -85,8 +72,8 @@ class PaymentWebhook(APIView):
             return Response({"error": f"Missing key: {str(e)}"}, status=status.HTTP_400_BAD_REQUEST)
         except json.JSONDecodeError:
             return Response({"error": "Invalid JSON format."}, status=status.HTTP_400_BAD_REQUEST)
-        except InternshipApplication.DoesNotExist:
-            return Response({"error": "Internship application not found."}, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            return Response({"error": "Internal server error."}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 def contact_us(request):

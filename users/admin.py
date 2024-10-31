@@ -9,18 +9,18 @@ class InternshipApplicationResource(resources.ModelResource):
 
 class InternshipApplicationAdmin(ImportExportModelAdmin):
     resource_class = InternshipApplicationResource
-    list_display = ('email', 'name', 'gender', 'domain', 'college', 'contact', 'whatsapp', 'qualification', 'year', 'source')
+    list_display = ('email', 'name', 'gender', 'domain', 'college', 'contact', 'address', 'qualification', 'year', 'ispaid', 'time')
     search_fields = ('email', 'name', 'college', 'domain')
-    list_filter = ('gender', 'year', 'college' , 'domain', 'time')
+    list_filter = ('gender', 'year', 'college', 'domain', 'ispaid', 'time')
 
-class ContactAdmin(admin.ModelAdmin):
+class ContactAdmin(ImportExportModelAdmin):
     list_display = ('name', 'email', 'message' , 'time')
     search_fields = ('name', 'email')
     list_filter = ('time',)
 
-class WebhookLogsAdmin(admin.ModelAdmin):
+class WebhookLogsAdmin(ImportExportModelAdmin):
     list_display = ('log', 'log_time')
-    search_fields = ('log',)
+    
 
 admin.site.register(InternshipApplication, InternshipApplicationAdmin)
 admin.site.register(Contact, ContactAdmin)
